@@ -1,0 +1,26 @@
+transaction_id,customer_name,customer_phone,country,trn_date,trn_time,product,qty,price,pay_mode
+TX1001,Amit Sharma,9876543210,India,15-06-2026,10:30,Apple MacBook Pro,1,1499.00,UPI
+TX1002,John Doe,2065550192,USA,2026-06-12,14:25,Wireless Mouse,2,25.50,Credit Card
+TX1003,Sarah Jenkins,447937123456,UK,06/11/2026,18:45,Noise Cancelling Headphones,1,199.99,Net Banking
+TX1004,David Lim,81234567,Singapore,10-06-2026,09:15,Mechanical Keyboard,1,120.00,Debit Card
+TX1005,Rohan Patel,91234567890,India,12-06-2026,22:10,Leather Wallet,1,45.00,UP1
+TX1006,Emily Stone,42555512,USA,2026-15-06,11:40,External Hard Drive 2TB,1,89.99,Credt Card
+TX1007,Michael Chang,90001234,Singapore,08-06-2026,27:00,USB-C Hub Multiport,3,35.00,Cash
+TX1008,Suresh Kumar,98980101,India,11-06-2026,08:30,Ergonomic Office Chair,1,249.00,UPI
+TX1009,,2065550181,USA,2026-06-10,13:20,Bluetooth Speaker,2,59.99,Debit Card
+TX1010,John Doe,2065550192,USA,2026-06-12,14:25,Wireless Mouse,2,25.50,Credit Card
+TX1011,Olivia Taylor,44123456789,UK,2026-06-13,15:50,Designer Desk Mat,1,40.00,Wallet
+TX1012,Amit Sharma,9876543210,India,15-06-2026,10:35,Laptop Sleeve Sleeves,1,-15.00,UPI
+TX1013,Jessica Brown,5553012,USA,2026-06-11,10:15,USB-C Cable Charger,5,15.99,Credit Card
+TX1014,Tan Wei,99120000,Singapore,09-06-2026,12:00,Smartphone Stabilizer Gimbal,1,149.00,Net Banking
+TX1015,Rahul Verma,9555121212,India,14-06-2026,17:22,Curved Gaming Monitor,100,299.99,UPI
+TX1015,Duplicate Row Entry,9555121212,India,14-06-2026,17:22,Curved Gaming Monitor,100,299.99,UPI
+TX1016,Alex Johnson,333444555,USA,2026-06-14,08:00,Ultra HD Web Camera,1,12000.00,Credit Card
+TX1017,Priya Naidu,9000900090,India,05-06-2026,23:45,Smart fitness Band,1,49.00,Wallet
+TX1018,Robert Frost,7035550211,USA,2026/06/15,16:10,Coffee Grinder Machine,1,79.50,Cash
+TX1019,Mary Shelley,447937000100,UK,16-06-2026,09:05,Vintage Notebook,3,15.00,Net Banking
+TX1020,Lee Kuan,88889999,Singapore,02-06-2026,11:30,Dual-band Wifi Router,1,110.00,Debit Card
+TX1021,Rajesh Patel,9999988888,India,10-06-2026,14:15,Power Bank 20000mAh,0,29.99,UPI
+TX1022,George Orwell,2025550186,USA,01-01-2026,19:84,1984 Classic Edition Book,1,9.99,Cash
+TX1023,Ada Lovelace,447123987012,UK,12-12-2026,15:00,C++ Programming Guide,2,45.00,Credt Card
+TX1024,Vikas Gupta,9123491234,India,16-06-2026,10:00,Wireless Charging Dock,1,39.00,UPI

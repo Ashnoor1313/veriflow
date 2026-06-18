@@ -1,0 +1,6 @@
+{
+  "name": "Veriflow",
+  "description": "Enterprise-grade dataset validation, anomaly detection, schema mapping, and automated cleaning hub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
