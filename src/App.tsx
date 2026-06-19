@@ -1046,7 +1046,7 @@ export default function App() {
               </h1>
 
               <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Seamlessly upload, map, audit, and output standardized high-fidelity files. Real-time statistical anomaly rules, standard date/time alignments, phone length country-checks, and close-match corrections all in one glassmorphic hub.
+                Seamlessly upload, map, audit, and output standardized files with real-time validation and anomaly detection.
               </p>
 
               {/* Load samples and triggers */}
