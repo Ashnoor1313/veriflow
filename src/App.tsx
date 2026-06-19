@@ -57,6 +57,8 @@ const DEFAULT_COUNTRY_PHONE_RULES: Record<string, number> = {
   "Germany": 11
 };
 
+const API_BASE = (((import.meta as any).env?.VITE_API_URL || "") as string).replace(/\/$/, "");
+
 export default function App() {
   const [currentTab, setCurrentTab] = useState<Tab>("landing");
   const [countryPhoneRules, setCountryPhoneRules] = useState<Record<string, number>>(DEFAULT_COUNTRY_PHONE_RULES);
@@ -176,6 +178,14 @@ export default function App() {
     return name + ext;
   };
 
+  const getDownloadUrl = (path: string) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) {
+      return path;
+    }
+    return `${API_BASE}${path.startsWith("/") ? "" : "/"}${path}`;
+  };
+
   // Convert files to base64 and call /upload API
   const handleFileUpload = async (file: File) => {
     if (!file) return;
@@ -199,7 +209,7 @@ export default function App() {
           // Extract base64 part
           const base64Data = result.split(",")[1];
 
-          const response = await fetch("/upload", {
+          const response = await fetch(`${API_BASE}/upload`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -279,13 +289,26 @@ export default function App() {
     });
 
     try {
-      const response = await fetch("/public/sample_transactions.csv");
+      // Try fetching from Render backend (API_BASE) or the local frontend host at both root and nested paths
+      let response = await fetch(`${API_BASE}/sample_transactions.csv`);
+      if (!response.ok) {
+        response = await fetch(`${API_BASE}/public/sample_transactions.csv`);
+      }
+      if (!response.ok) {
+        response = await fetch("/sample_transactions.csv");
+      }
+      if (!response.ok) {
+        response = await fetch("/public/sample_transactions.csv");
+      }
+      if (!response.ok) {
+        throw new Error(`Failed to load sample dataset from any available source (status ${response.status})`);
+      }
       const text = await response.text();
       
       // Convert text to base64 equivalent
       const base64Str = btoa(unescape(encodeURIComponent(text)));
       
-      const uploadResp = await fetch("/upload", {
+      const uploadResp = await fetch(`${API_BASE}/upload`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -339,7 +362,7 @@ export default function App() {
 
     try {
       // 1. Run Validation
-      const valResponse = await fetch("/validate", {
+      const valResponse = await fetch(`${API_BASE}/validate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -357,7 +380,7 @@ export default function App() {
       setValidationResults(valData);
 
       // 2. Run Anomaly Detection
-      const anomalyResponse = await fetch("/anomaly-detection", {
+      const anomalyResponse = await fetch(`${API_BASE}/anomaly-detection`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -518,7 +541,7 @@ export default function App() {
       let response;
       if (records.length > 5000) {
         showToast("Large dataset detected (>5000 records). Bundling partitioned zip chunks...", "info");
-        response = await fetch("/chunk-file", {
+        response = await fetch(`${API_BASE}/chunk-file`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -530,7 +553,7 @@ export default function App() {
         });
       } else {
         showToast("Generating standardized validated_records.csv...", "info");
-        response = await fetch("/generate-clean-file", {
+        response = await fetch(`${API_BASE}/generate-clean-file`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -2071,7 +2094,7 @@ export default function App() {
               <div className="pt-4 space-y-3">
                 {downloadResult ? (
                   <a
-                    href={`${downloadResult.downloadUrl}&filename=${encodeURIComponent(getProcessedExportFileName())}`}
+                    href={getDownloadUrl(`${downloadResult.downloadUrl}&filename=${encodeURIComponent(getProcessedExportFileName())}`)}
                     className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500 border border-white/10 py-4 px-6 rounded-2xl font-bold text-sm text-white shadow-lg flex items-center justify-center space-x-2 transition-all cursor-pointer"
                   >
                     <FileDown className="h-5 w-5" />
@@ -2288,7 +2311,7 @@ export default function App() {
                 </button>
                 {downloadResult && (
                   <a
-                    href={downloadResult.downloadUrl}
+                    href={getDownloadUrl(`${downloadResult.downloadUrl}&filename=${encodeURIComponent(getProcessedExportFileName())}`)}
                     className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-lg flex items-center space-x-1.5 transition-all cursor-pointer border border-white/10"
                   >
                     <FileDown className="h-3.5 w-3.5" />

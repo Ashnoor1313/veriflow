@@ -3,6 +3,7 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import * as xlsx from "xlsx";
 import JSZip from "jszip";
+import cors from "cors";
 
 // Simple in-memory storage for clean downloads & chunks to avoid disk write permissions issues
 const downloadStorage = new Map<string, { data: Buffer | string; contentType: string; fileName: string }>();
@@ -190,7 +191,14 @@ function detectSchema(columns: string[]): Record<string, string> {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
+
+  // Enable CORS for external cross-origin requests
+  app.use(cors());
+
+  // Serve public folder statically (specifically so Render or external deploys can serve the sample CSV)
+  app.use("/public", express.static(path.join(process.cwd(), "public")));
+  app.use(express.static(path.join(process.cwd(), "public")));
 
   // Set response limits high for uploading spreadsheets
   app.use(express.json({ limit: "50mb" }));
