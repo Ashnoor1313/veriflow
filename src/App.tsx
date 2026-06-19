@@ -2136,7 +2136,7 @@ export default function App() {
       <footer className="border-t border-white/5 py-8 mt-16 bg-slate-950/20 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4">
           <p>© 2026 Veriflow. All rights reserved.</p>
-          <p className="mt-1 font-mono text-[10px]">Secure sandboxed node stream parsing • Zero third-party telemetry</p>
+          <p className="mt-1 font-mono text-[10px]"> </p>
         </div>
       </footer>
 
